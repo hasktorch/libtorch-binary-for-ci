@@ -5,7 +5,7 @@
 USE_NIGHTLY=""
 
 for arch in "shared-with-deps-latest" "macos-latest" "win-shared-with-deps-latest" ; do
-		for cuda in cpu cu80 cu90 cu100 ; do
+		for cuda in cpu cu90 cu100 ; do
 				if [ $arch = "macos-latest" ] && [ $cuda = "cu90" -o $cuda = "cu100" -o $cuda = "cu80" ]; then
 					 echo "skip ${cuda} of ${arch}";
 				else
