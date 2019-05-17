@@ -4,7 +4,7 @@ Download prebuild libtorch binaries from pytorch-official-site.
 Then upload them to this repo's release-page.
 To do the operations, type following commands.
 
-``
+```
 #Install github-release command
 > go get github.com/aktau/github-release
 
@@ -16,4 +16,4 @@ To do the operations, type following commands.
 
 #Upload libtorch-binaries to github
 > ./upload-binary.sh
-``
+```
