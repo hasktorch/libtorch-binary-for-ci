@@ -2,7 +2,7 @@ VERSION=1.4.0
 
 all:libtorch_$(VERSION)+cpu-1_amd64.deb \
     libtorch_$(VERSION)+cu92-1_amd64.deb \
-    libtorch_$(VERSION)+cu101u-1_amd64.deb \
+    libtorch_$(VERSION)+cu101-1_amd64.deb \
     libtorch-$(VERSION)+cpu-1.x86_64.rpm \
     libtorch-$(VERSION)+cu92-1.x86_64.rpm \
     libtorch-$(VERSION)+cu101-1.x86_64.rpm
