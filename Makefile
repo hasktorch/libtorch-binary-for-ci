@@ -8,11 +8,12 @@ all:libtorch_$(VERSION)+cpu-1_amd64.deb \
     libtorch-$(VERSION)+cu101-1.x86_64.rpm
 
 libtorch-$(VERSION)+cpu.tgz:
-	wget -c https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.4.0%2Bcpu.zip
+	#wget -c https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.4.0%2Bcpu.zip
 	rm -rf libtorch usr/
 	unzip libtorch-cxx11-abi-shared-with-deps-$(VERSION)+cpu.zip
 	mkdir -p usr
 	cp -r libtorch/* usr/
+	cd usr/include/torch; for i in csrc/api/include/torch/* ; do ln -s $$i ;done
 	tar cvfz libtorch-$(VERSION)+cpu.tgz usr
 
 libtorch_$(VERSION)+cpu-1_amd64.deb:libtorch-$(VERSION)+cpu.tgz
@@ -23,11 +24,12 @@ libtorch-$(VERSION)+cpu-1.x86_64.rpm:libtorch-$(VERSION)+cpu.tgz
 
 
 libtorch-$(VERSION)+cu92.tgz:
-	wget -c https://download.pytorch.org/libtorch/cu92/libtorch-cxx11-abi-shared-with-deps-1.4.0%2Bcu92.zip
-	rm -rf libtorch usr/local/
+	#	wget -c https://download.pytorch.org/libtorch/cu92/libtorch-cxx11-abi-shared-with-deps-1.4.0%2Bcu92.zip
+	rm -rf libtorch usr/
 	unzip libtorch-cxx11-abi-shared-with-deps-$(VERSION)+cu92.zip
-	mkdir -p usr/local
-	cp -r libtorch/* usr/local/
+	mkdir -p usr
+	cp -r libtorch/* usr/
+	cd usr/include/torch; for i in csrc/api/include/torch/* ; do ln -s $$i ;done
 	tar cvfz libtorch-$(VERSION)+cu92.tgz usr
 
 libtorch_$(VERSION)+cu92-1_amd64.deb:libtorch-$(VERSION)+cu92.tgz
@@ -38,11 +40,12 @@ libtorch-$(VERSION)+cu92-1.x86_64.rpm:libtorch-$(VERSION)+cu92.tgz
 
 
 libtorch-$(VERSION)+cu101.tgz:
-	wget -c https://download.pytorch.org/libtorch/cu101/libtorch-cxx11-abi-shared-with-deps-1.4.0.zip
-	rm -rf libtorch usr/local/
-	unzip libtorch-cxx11-abi-shared-with-deps-$(VERSION)+cu101.zip
-	mkdir -p usr/local
-	cp -r libtorch/* usr/local/
+	#wget -c https://download.pytorch.org/libtorch/cu101/libtorch-cxx11-abi-shared-with-deps-1.4.0.zip
+	rm -rf libtorch usr/
+	unzip libtorch-cxx11-abi-shared-with-deps-$(VERSION).zip
+	mkdir -p usr
+	cp -r libtorch/* usr/
+	cd usr/include/torch; for i in csrc/api/include/torch/* ; do ln -s $$i ;done
 	tar cvfz libtorch-$(VERSION)+cu101.tgz usr
 
 libtorch_$(VERSION)+cu101-1_amd64.deb:libtorch-$(VERSION)+cu101.tgz
