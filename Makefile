@@ -59,7 +59,7 @@ libtorch-$(VERSION)+cu101-1.x86_64.rpm:libtorch-$(VERSION)+cu101.tgz
 
 
 libtorch-$(VERSION)+cu102.tgz:
-	wget -c https://download.pytorch.org/libtorch/cu101/libtorch-cxx11-abi-shared-with-deps-$(VERSION).zip
+	wget -c https://download.pytorch.org/libtorch/cu102/libtorch-cxx11-abi-shared-with-deps-$(VERSION).zip
 	rm -rf libtorch usr/
 	unzip libtorch-cxx11-abi-shared-with-deps-$(VERSION)+cu102.zip
 	mkdir -p usr/
