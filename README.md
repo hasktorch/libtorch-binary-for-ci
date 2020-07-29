@@ -9,11 +9,11 @@ To do the operations, type following commands.
 > go get github.com/aktau/github-release
 
 #Download libtorch-binaries
-> ./download-binary.sh
+> make
 
 #Set github-token
 > export GITHUB_TOKEN=xxxx
 
 #Upload libtorch-binaries to github
-> ./upload-binary.sh
+> make upload
 ```
