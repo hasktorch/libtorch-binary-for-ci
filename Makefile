@@ -35,11 +35,14 @@ cu101-libtorch-cxx11-abi-shared-with-deps-latest.zip: libtorch-cxx11-abi-shared-
 cu102-libtorch-cxx11-abi-shared-with-deps-latest.zip: libtorch-cxx11-abi-shared-with-deps-$(VERSION).zip
 	ln -s $< $@ 
 
+cu110-libtorch-cxx11-abi-shared-with-deps-latest.zip: libtorch-cxx11-abi-shared-with-deps-$(VERSION)+cu110.zip
+	ln -s $< $@ 
+
 cpu-libtorch-macos-latest.zip: libtorch-macos-$(VERSION).zip
 	ln -s $< $@
 
-libtorch-macos-1.6.0.zip:
-	wget -c https://download.pytorch.org/libtorch/cpu/libtorch-macos-1.6.0.zip
+libtorch-macos-$(VERSION).zip:
+	wget -c https://download.pytorch.org/libtorch/cpu/libtorch-macos-$(VERSION).zip
 
 libtorch-cxx11-abi-shared-with-deps-$(VERSION)+cpu.zip:
 	wget -c https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-$(VERSION)%2Bcpu.zip
