@@ -3,19 +3,22 @@ VERSION=1.8.0
 FILES=libtorch_$(VERSION)+cpu-1_amd64.deb \
     libtorch_$(VERSION)+cu102-1_amd64.deb \
     libtorch_$(VERSION)+cu111-1_amd64.deb \
+    libtorch_$(VERSION)+rocm-1_amd64.deb \
     libtorch-$(VERSION)+cpu-1.x86_64.rpm \
     libtorch-$(VERSION)+cu102-1.x86_64.rpm \
     libtorch-$(VERSION)+cu111-1.x86_64.rpm \
+    libtorch-$(VERSION)+rocm-1.x86_64.rpm \
     cpu-libtorch-macos-latest.zip \
     cpu-libtorch-cxx11-abi-shared-with-deps-latest.zip \
     cu102-libtorch-cxx11-abi-shared-with-deps-latest.zip \
-    cu111-libtorch-cxx11-abi-shared-with-deps-latest.zip
+    cu111-libtorch-cxx11-abi-shared-with-deps-latest.zip \
+    rocm-libtorch-cxx11-abi-shared-with-deps-latest.zip
 
 all:$(FILES)
 
 upload:$(FILES)
-	github-release release -u hasktorch -r libtorch-binary-for-ci -t $(VERSION)
-	for i in $(FILES) ; do echo $$i ;github-release upload -u hasktorch -r libtorch-binary-for-ci -t $(VERSION) -R -n $$i -f $$i ; done
+	gh release create $(VERSION)
+	for i in $(FILES) ; do echo $$i ; gh release upload $(VERSION) $$i ; done
 
 cpu-libtorch-cxx11-abi-shared-with-deps-latest.zip: libtorch-cxx11-abi-shared-with-deps-$(VERSION)+cpu.zip
 	ln -s $< $@ 
@@ -86,4 +89,33 @@ libtorch_$(VERSION)+cu111-1_amd64.deb:libtorch-$(VERSION)+cu111.tgz
 libtorch-$(VERSION)+cu111-1.x86_64.rpm:libtorch-$(VERSION)+cu111.tgz
 	fakeroot alien --to-rpm --bump=0 --version=$(VERSION)+cu111 --target=amd64 libtorch-$(VERSION)+cu111.tgz
 
+
+libtorch-cxx11-abi-shared-with-deps-$(VERSION)+rocm.zip:
+	rm -rf libtorch torch
+	wget https://download.pytorch.org/whl/rocm4.0.1/torch-1.8.0%2Brocm4.0.1-cp39-cp39-linux_x86_64.whl
+	unzip torch-1.8.0%2Brocm4.0.1-cp39-cp39-linux_x86_64.whl
+	mkdir libtorch
+	cp -r torch/include libtorch/
+	cp -r torch/share libtorch/
+	cp -r torch/lib libtorch/
+	rm -rf torch
+	zip -r libtorch-cxx11-abi-shared-with-deps-$(VERSION)+rocm.zip libtorch
+
+libtorch-$(VERSION)+rocm.tgz:libtorch-cxx11-abi-shared-with-deps-$(VERSION)+rocm.zip
+	rm -rf libtorch usr/
+	unzip libtorch-cxx11-abi-shared-with-deps-$(VERSION)+rocm.zip
+	mkdir -p usr/
+	cp -r libtorch/* usr/
+	cd usr/include/torch; for i in csrc/api/include/torch/* ; do ln -s $$i ;done
+	tar cvfz libtorch-$(VERSION)+rocm.tgz usr
+
+libtorch_$(VERSION)+rocm-1_amd64.deb:libtorch-$(VERSION)+rocm.tgz
+	fakeroot alien --to-deb --bump=0 --version=$(VERSION)+rocm --target=amd64 libtorch-$(VERSION)+rocm.tgz
+
+libtorch-$(VERSION)+rocm-1.x86_64.rpm:libtorch-$(VERSION)+rocm.tgz
+	fakeroot alien --to-rpm --bump=0 --version=$(VERSION)+rocm --target=amd64 libtorch-$(VERSION)+rocm.tgz
+
+
+rocm-libtorch-cxx11-abi-shared-with-deps-latest.zip: libtorch-cxx11-abi-shared-with-deps-$(VERSION)+rocm.zip
+	ln -s $< $@ 
 
