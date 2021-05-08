@@ -5,14 +5,17 @@ Then upload them to this repo's release-page.
 To do the operations, type following commands.
 
 ```
-#Install github-release command
-> go get github.com/aktau/github-release
+# Install gh command (https://cli.github.com/)
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+sudo apt-add-repository https://cli.github.com/packages
+sudo apt update
+sudo apt install gh
+
+# Install alien and fakeroot to make deb/rpm files for linux.
+sudo apt install alien fakeroot
 
 #Download libtorch-binaries
 > make
-
-#Set github-token
-> export GITHUB_TOKEN=xxxx
 
 #Upload libtorch-binaries to github
 > make upload
