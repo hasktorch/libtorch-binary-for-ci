@@ -1,6 +1,8 @@
-VERSION=1.8.1
+VERSION=1.9.0
 
-FILES=libtorch_$(VERSION)+cpu-1_amd64.deb \
+FILES=cpu-libtorch-macos-latest.zip
+
+_FILES=libtorch_$(VERSION)+cpu-1_amd64.deb \
     libtorch_$(VERSION)+cu102-1_amd64.deb \
     libtorch_$(VERSION)+cu111-1_amd64.deb \
     libtorch-$(VERSION)+cpu-1.x86_64.rpm \
