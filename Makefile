@@ -1,4 +1,4 @@
-VERSION=1.8.1
+VERSION=1.9.0
 
 FILES=libtorch_$(VERSION)+cpu-1_amd64.deb \
     libtorch_$(VERSION)+cu102-1_amd64.deb \
