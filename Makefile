@@ -3,9 +3,6 @@ VERSION=1.9.0
 FILES=libtorch_$(VERSION)+cpu-1_amd64.deb \
     libtorch_$(VERSION)+cu102-1_amd64.deb \
     libtorch_$(VERSION)+cu111-1_amd64.deb \
-    libtorch-$(VERSION)+cpu-1.x86_64.rpm \
-    libtorch-$(VERSION)+cu102-1.x86_64.rpm \
-    libtorch-$(VERSION)+cu111-1.x86_64.rpm \
     cpu-libtorch-macos-latest.zip \
     cpu-libtorch-cxx11-abi-shared-with-deps-latest.zip \
     cu102-libtorch-cxx11-abi-shared-with-deps-latest.zip \
