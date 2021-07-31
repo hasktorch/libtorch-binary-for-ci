@@ -1,3 +1,4 @@
+PREVIOUS_VERSION=1.8.1
 VERSION=1.9.0
 
 FILES=libtorch_$(VERSION)+cpu-1_amd64.deb \
@@ -84,3 +85,12 @@ libtorch-$(VERSION)+cu111-1.x86_64.rpm:libtorch-$(VERSION)+cu111.tgz
 	fakeroot alien --to-rpm --bump=0 --version=$(VERSION)+cu111 --target=amd64 libtorch-$(VERSION)+cu111.tgz
 
 
+update-apt:
+	wget https://github.com/hasktorch/libtorch-binary-for-ci/releases/download/apt/Packages_$(PREVIOUS_VERSION).gz
+	zcat Packages_$(PREVIOUS_VERSION).gz > Packages.org
+	apt-ftparchive packages ./ > Packages.new
+	cat Packages.new Packages.org | gzip | dd of=Packages.gz bs=1M
+	for i in *.deb ; do echo $$i ; gh release upload apt $$i ; done
+	cp Packages.gz Packages_$(VERSION).gz
+	gh release upload apt Packages.gz --clobber
+	gh release upload apt Packages_$(VERSION).gz
