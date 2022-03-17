@@ -1,13 +1,13 @@
-PREVIOUS_VERSION=1.8.1
-VERSION=1.9.0
+PREVIOUS_VERSION=1.9.0
+VERSION=1.11.0
 
 FILES=libtorch_$(VERSION)+cpu-1_amd64.deb \
     libtorch_$(VERSION)+cu102-1_amd64.deb \
-    libtorch_$(VERSION)+cu111-1_amd64.deb \
+    libtorch_$(VERSION)+cu113-1_amd64.deb \
     cpu-libtorch-macos-latest.zip \
     cpu-libtorch-cxx11-abi-shared-with-deps-latest.zip \
     cu102-libtorch-cxx11-abi-shared-with-deps-latest.zip \
-    cu111-libtorch-cxx11-abi-shared-with-deps-latest.zip
+    cu113-libtorch-cxx11-abi-shared-with-deps-latest.zip
 
 all:$(FILES)
 
@@ -21,7 +21,7 @@ cpu-libtorch-cxx11-abi-shared-with-deps-latest.zip: libtorch-cxx11-abi-shared-wi
 cu102-libtorch-cxx11-abi-shared-with-deps-latest.zip: libtorch-cxx11-abi-shared-with-deps-$(VERSION)+cu102.zip
 	ln -s $< $@ 
 
-cu111-libtorch-cxx11-abi-shared-with-deps-latest.zip: libtorch-cxx11-abi-shared-with-deps-$(VERSION)+cu111.zip
+cu113-libtorch-cxx11-abi-shared-with-deps-latest.zip: libtorch-cxx11-abi-shared-with-deps-$(VERSION)+cu113.zip
 	ln -s $< $@ 
 
 cpu-libtorch-macos-latest.zip: libtorch-macos-$(VERSION).zip
@@ -67,22 +67,22 @@ libtorch_$(VERSION)+cu102-1_amd64.deb:libtorch-$(VERSION)+cu102.tgz
 libtorch-$(VERSION)+cu102-1.x86_64.rpm:libtorch-$(VERSION)+cu102.tgz
 	fakeroot alien --to-rpm --bump=0 --version=$(VERSION)+cu102 --target=amd64 libtorch-$(VERSION)+cu102.tgz
 
-libtorch-cxx11-abi-shared-with-deps-$(VERSION)+cu111.zip:
-	wget -c https://download.pytorch.org/libtorch/cu111/libtorch-cxx11-abi-shared-with-deps-$(VERSION)%2Bcu111.zip
+libtorch-cxx11-abi-shared-with-deps-$(VERSION)+cu113.zip:
+	wget -c https://download.pytorch.org/libtorch/cu113/libtorch-cxx11-abi-shared-with-deps-$(VERSION)%2Bcu113.zip
 
-libtorch-$(VERSION)+cu111.tgz:libtorch-cxx11-abi-shared-with-deps-$(VERSION)+cu111.zip
+libtorch-$(VERSION)+cu113.tgz:libtorch-cxx11-abi-shared-with-deps-$(VERSION)+cu113.zip
 	rm -rf libtorch usr/
-	unzip libtorch-cxx11-abi-shared-with-deps-$(VERSION)+cu111.zip
+	unzip libtorch-cxx11-abi-shared-with-deps-$(VERSION)+cu113.zip
 	mkdir -p usr/
 	cp -r libtorch/* usr/
 	cd usr/include/torch; for i in csrc/api/include/torch/* ; do ln -s $$i ;done
-	tar cvfz libtorch-$(VERSION)+cu111.tgz usr
+	tar cvfz libtorch-$(VERSION)+cu113.tgz usr
 
-libtorch_$(VERSION)+cu111-1_amd64.deb:libtorch-$(VERSION)+cu111.tgz
-	fakeroot alien --to-deb --bump=0 --version=$(VERSION)+cu111 --target=amd64 libtorch-$(VERSION)+cu111.tgz
+libtorch_$(VERSION)+cu113-1_amd64.deb:libtorch-$(VERSION)+cu113.tgz
+	fakeroot alien --to-deb --bump=0 --version=$(VERSION)+cu113 --target=amd64 libtorch-$(VERSION)+cu113.tgz
 
-libtorch-$(VERSION)+cu111-1.x86_64.rpm:libtorch-$(VERSION)+cu111.tgz
-	fakeroot alien --to-rpm --bump=0 --version=$(VERSION)+cu111 --target=amd64 libtorch-$(VERSION)+cu111.tgz
+libtorch-$(VERSION)+cu113-1.x86_64.rpm:libtorch-$(VERSION)+cu113.tgz
+	fakeroot alien --to-rpm --bump=0 --version=$(VERSION)+cu113 --target=amd64 libtorch-$(VERSION)+cu113.tgz
 
 
 update-apt:
